@@ -221,20 +221,28 @@
 							class="form-control" placeholder="手機號碼" name="mobile"
 							value="${member.mobile}">
 					</div>
-					<div class="input-group flex-nowrap input-group-lg div">
-						<span class="input-group-text">大頭照</span> <input type="file" ass="form-control" placeholder="" name="image" id="uploadYAbi">
-					</div>
 					
+					
+<!-- 					<div class="input-group flex-nowrap input-group-lg div"> -->
+<!-- 						<span class="input-group-text">大頭照</span>  -->
+<!-- 						<input type="file" ass="form-control" placeholder="" name="image" id="uploadYAbi"> -->
+<!-- 					</div> -->
+
+
 					<div class="actions">
 						<button class="file-btn">
-							<span>上传</span> <input type="file" id="upload" value="选择图片文件" />
+							<span>上傳</span> <input type="file" id="upload" value="選擇圖片" />
 						</button>
 						<div class="crop">
 							<div id="upload-demo"></div>
-							<button class="upload-result">裁剪</button>
+							<input class="button btn btn-success" id="sendPic" value="裁剪">
 						</div>
 						<div id="result"></div>
+						<input class="" type="Hidden" id="photoChar" name="image" value="">
 					</div>
+
+
+
 
 					<div class="btnBlock gap-2 col-6 mx-auto container">
 						<input class="button btn btn-success" type="submit"
@@ -244,6 +252,7 @@
 							onclick="backBtn()">
 					</div>
 				</form>
+
 
 
 
@@ -267,6 +276,8 @@
 
 		<!--script-------->
 		<script type="text/javascript">
+
+		var photoChar = document.getElementById("photoChar").value;
 		
 			function backBtn() {
 				window.location.assign("<c:url value='/lock/MemberCenter'/>");
@@ -281,9 +292,10 @@
 				document.getElementById("genderInput").value = x.options[x.selectedIndex].text;
 				console.log(document.getElementById("genderInput").value);
 			}
+			
 
 			//////////////////////////////////////剪裁//////////////////////////////////////////
-			
+
 			$(function() {
 				var $uploadCrop;
 
@@ -320,7 +332,7 @@
 					$(".crop").show();
 					readFile(this);
 				});
-				$('.upload-result').on(
+				$('#sendPic').on(
 						'click',
 						function(ev) {
 							$uploadCrop.croppie('result', 'canvas').then(
@@ -338,15 +350,16 @@
 					}
 					if (result.src) {
 						html = '<img src="' + result.src + '" />';
+						$("#photoChar").val(result.src);
+						console.log("#photoChar = " + $("#photoChar").val());
 					}
 					$("#result").html(html);
 				}
 			});
 
 
+			
 			//////////////////////////////////////剪裁//////////////////////////////////////////
-			
-			
 		</script>
 </body>
 </html>

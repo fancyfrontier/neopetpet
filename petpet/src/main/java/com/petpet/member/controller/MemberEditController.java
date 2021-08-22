@@ -1,6 +1,7 @@
 package com.petpet.member.controller;
 
 import java.io.IOException;
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,15 +36,18 @@ public class MemberEditController {
 	//更新會員資料
 	@PostMapping("/UpdateMemberEdit")
 	public String updateMemberEdit(@RequestParam(name = "memberid") Integer memberid, 
-									HttpServletRequest request, Model m,
-									final @RequestParam(name="image",  required = false) MultipartFile file) throws IOException {
-			
+								   @RequestParam(name = "image") String photo,
+								   HttpServletRequest request, Model m) {
+		
+		
+		String photoChar = photo.substring(photo.indexOf(",") + 1);
+		
 		Member member = memberService.findById(memberid);
 		byte[] imageData1= member.getPhoto();
-			
 		member.setPhoto(imageData1);
-		if (!file.isEmpty()) {	
-			byte[] imageData = file.getBytes();
+		
+		if (!photo.isEmpty()) {		
+			byte[] imageData = Base64.getDecoder().decode(photoChar);
 			member.setPhoto(imageData);
 		}
 			
@@ -58,4 +62,37 @@ public class MemberEditController {
 			
 		return "Member/MemberCenter";
 	}
+	
+	
+	
+	
+//	//更新會員資料
+//		@PostMapping("/UpdateMemberEdit")
+//		public String updateMemberEdit(@RequestParam(name = "memberid") Integer memberid, 
+//										HttpServletRequest request, Model m,
+//										final @RequestParam(name="image",  required = false) MultipartFile file) throws IOException {
+//				
+//			Member member = memberService.findById(memberid);
+//			byte[] imageData1= member.getPhoto();
+//			
+//			
+//			
+//			member.setPhoto(imageData1);
+//			if (!file.isEmpty()) {
+//				Base64.getDecoder().decode(src)
+//				byte[] imageData = file.getBytes();
+//				member.setPhoto(imageData);
+//			}
+//				
+//			member.setFullname(request.getParameter("fullname"));
+//			member.setGender(request.getParameter("gender"));
+//			member.setBirthday(request.getParameter("birthday"));
+//			member.setMobile(request.getParameter("mobile"));
+//				
+//			memberService.save(member);
+//
+//			m.addAttribute("member", member);
+//				
+//			return "Member/MemberCenter";
+//		}
 }
