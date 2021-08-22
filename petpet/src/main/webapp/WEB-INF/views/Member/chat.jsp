@@ -88,7 +88,9 @@
 	        usernamePage.classList.add('hidden');
 	        chatPage.classList.remove('hidden');
 
-	        var socket = new SockJS('/javatechie');
+			var url = "/petpet";
+			
+	        var socket = new SockJS(url + '/javatechie');
 	        stompClient = Stomp.over(socket);
 
 	        stompClient.connect({}, onConnected, onError);
