@@ -71,7 +71,7 @@
 
             <!--menu----------->
             <ul class="menu">
-                <li><a href="#">最新消息</a></li>
+                <li><a href="<c:url value='/Test' />">最新消息</a></li>
 
                 <li><a href="#">商品總覽</a>
                     <!--sale-label-->
